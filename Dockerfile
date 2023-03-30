@@ -16,12 +16,11 @@ RUN sed -i -r 's/#(LoadModule.*mod_rewrite.so)/\1/' /etc/apache2/httpd.conf
 COPY ./artifacts/www.conf /etc/apache2/conf.d/www.conf
 
 COPY ./CRM /var/www/html/CRM
-RUN chown -R www-data:www-data /var/www/html/CRM
-RUN nohup php /var/www/html/CRM/index.php RatchetServer &
+RUN chown -R www-data:www-data /var/www/html/CRM/application/cache/session
 
 EXPOSE 80
 EXPOSE 8989
 
 RUN mkdir /run/apache2
 
-ENTRYPOINT httpd && php-fpm -F
+ENTRYPOINT ["sh", "-c", "httpd && nohup php /var/www/html/CRM/index.php RatchetServer & php-fpm -F"]
