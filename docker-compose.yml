@@ -9,3 +9,4 @@ services:
       - .:/var/www/html
     ports:
       - "80:80"
+      - "8989:8989"

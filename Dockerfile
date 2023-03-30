@@ -17,8 +17,10 @@ COPY ./artifacts/www.conf /etc/apache2/conf.d/www.conf
 
 COPY ./CRM /var/www/html/CRM
 RUN chown -R www-data:www-data /var/www/html/CRM
+RUN nohup php /var/www/html/CRM/index.php RatchetServer &
 
 EXPOSE 80
+EXPOSE 8989
 
 RUN mkdir /run/apache2
 
