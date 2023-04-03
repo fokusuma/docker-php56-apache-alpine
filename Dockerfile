@@ -19,6 +19,10 @@ RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 RUN sed -i "s/upload_max_filesize = .*/upload_max_filesize = 20M/" /usr/local/etc/php/php.ini
 RUN sed -i "s/post_max_size = .*/post_max_size = 20M/" /usr/local/etc/php/php.ini
 
+RUN echo "php_admin_value[date.timezone] = \"Asia/Makassar\"">>/usr/local/etc/php-fpm.d/www.conf
+RUN echo "php_admin_value[display_errors] = On">>/usr/local/etc/php-fpm.d/www.conf
+RUN echo "php_admin_value[error_reporting] = E_ALL & ~E_DEPRECATED">>/usr/local/etc/php-fpm.d/www.conf
+
 COPY ./CRM /var/www/html/CRM
 RUN chown -R www-data:www-data /var/www/html/CRM/application/cache/session
 
